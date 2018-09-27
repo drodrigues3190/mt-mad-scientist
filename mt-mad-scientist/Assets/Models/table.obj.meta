@@ -119,6 +119,25 @@ ModelImporter:
     4300032: Cylinder026
     4300034: Cylinder027
     4300036: Cylinder028
+    6400000: Box001
+    6400002: Cylinder008
+    6400004: Cylinder010
+    6400006: Cylinder011
+    6400008: Cylinder012
+    6400010: Cylinder014
+    6400012: Cylinder016
+    6400014: Cylinder017
+    6400016: Cylinder018
+    6400018: Cylinder019
+    6400020: Cylinder020
+    6400022: Cylinder021
+    6400024: Cylinder022
+    6400026: Cylinder023
+    6400028: Cylinder024
+    6400030: Cylinder025
+    6400032: Cylinder026
+    6400034: Cylinder027
+    6400036: Cylinder028
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -152,7 +171,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
