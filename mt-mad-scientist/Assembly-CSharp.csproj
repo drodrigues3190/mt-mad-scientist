@@ -73,7 +73,6 @@
     <Compile Include="Assets\Scripts\Handle_Cursor.cs" />
     <Compile Include="Assets\Scripts\Pointer.cs" />
     <Compile Include="Assets\Scripts\UpdateCursor.cs" />
-    <Compile Include="Assets\test.cs" />
     <Compile Include="Assets\TriggerCollision.cs" />
     <Compile Include="Assets\XInputDotNet\Examples\XInputTestCS.cs" />
     <None Include="Assets\XInputDotNet\Docs.txt" />
