@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\AudioScript.cs" />
     <Compile Include="Assets\Scripts\Handle_Cursor.cs" />
     <Compile Include="Assets\Scripts\Pointer.cs" />
+    <Compile Include="Assets\Scripts\SonarBehaviour.cs" />
     <Compile Include="Assets\Scripts\UpdateCursor.cs" />
     <Compile Include="Assets\TriggerCollision.cs" />
     <Compile Include="Assets\XInputDotNet\Examples\XInputTestCS.cs" />
