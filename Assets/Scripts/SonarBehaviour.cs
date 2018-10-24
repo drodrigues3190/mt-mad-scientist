@@ -48,7 +48,10 @@ public class SonarBehaviour : MonoBehaviour {
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit))
-            isRadar = false;
+        {
+            if (hit.collider.name.Equals("Sphere"))
+                isRadar = false;
+        }
         else
             isRadar = true;
     }
@@ -82,22 +85,27 @@ public class SonarBehaviour : MonoBehaviour {
     /// </summary>
     private void UpdateAudioSourcePitch()
     {
-        var dist = Mathf.Abs(GameObject.Find("14029_plastic_fruit_crate_SG").transform.position.z - transform.position.z);
+        var dist = Mathf.Abs(GameObject.Find("Sphere").transform.position.z - transform.position.z);
         var targetV3Position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, dist);
         targetV3Position = Camera.main.ScreenToWorldPoint(targetV3Position);
-        var distanceToTarget = Vector3.Distance(targetV3Position, transform.position);
+       
+        var distanceToTarget = targetV3Position.magnitude;
 
+        //var distanceToTarget = Vector3.Distance(targetV3Position, transform.position);
+        //var distanceToTarget = Vector3.Distance(transform.position.z, GameObject.Find("Sphere").transform.position.z);
+
+        Debug.Log(distanceToTarget);
         if (distanceToTarget < previousDistance)
         {
             previousDistance = distanceToTarget;
             if (audioSource.pitch < 3.25f)
-                audioSource.pitch += 0.25f * Time.deltaTime;
+                audioSource.pitch += 0.275f * Time.deltaTime;
         }
         else if (distanceToTarget > previousDistance)
         {
             previousDistance = distanceToTarget;
             if (audioSource.pitch > 1.0f)
-                this.audioSource.pitch -= 0.25f * Time.deltaTime;
+                this.audioSource.pitch -= 0.275f * Time.deltaTime;
         }
     }
 

@@ -10,6 +10,7 @@ public class AudioScript : MonoBehaviour {
     Ray ray;
 
     public AudioSource MusicSource;
+    public AudioSource cameraAudioSouce;
 
 	// Use this for initialization
 	void Start () {
@@ -23,20 +24,20 @@ public class AudioScript : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit))
         {
-            //FadeOutTestCaller(audioSource, 1.0f);
-            //MusicSource.Play();
-            test = true;
-            if (MusicSource.clip != MusicClip)
+            if (hit.collider.name.Equals("Sphere"))
             {
-                MusicSource.Stop();
-                MusicSource.clip = MusicClip;
-            }
+                test = true;
+                if (MusicSource.clip != MusicClip)
+                {
+                    MusicSource.Stop();
+                    MusicSource.clip = MusicClip;
+                }
 
-            if (!MusicSource.isPlaying)
-            {
-                MusicSource.Play();
+                if (!MusicSource.isPlaying)
+                {
+                    MusicSource.Play();
+                }
             }
-            //print(hit.collider.name);
         }
     }
 
