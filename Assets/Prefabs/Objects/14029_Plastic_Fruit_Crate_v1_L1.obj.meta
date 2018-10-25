@@ -8,6 +8,7 @@ ModelImporter:
     400000: 14029_plastic_fruit_crate_SG
     400002: //RootNode
     2100000: _14029_plastic_fruit_crate_v1_L114029_plastic_fruit_crate
+    2100002: 14029_plastic_fruit_crate_SGMat
     2300000: 14029_plastic_fruit_crate_SG
     3300000: 14029_plastic_fruit_crate_SG
     4300000: 14029_plastic_fruit_crate_SG
@@ -83,7 +84,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mt-mad-scientist", "Assembly-CSharp.csproj", "{E3040426-AD58-5295-748D-CE175EE66E69}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{E3040426-AD58-5295-748D-CE175EE66E69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mt-mad-scientist", "Assembly-CSharp-firstpass.csproj", "{4A6955E0-DB48-93FD-2739-67CA4E64CC47}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{4A6955E0-DB48-93FD-2739-67CA4E64CC47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mt-mad-scientist", "Assembly-CSharp-Editor-firstpass.csproj", "{1B3F7F21-41E9-FB43-41C3-D41D12E9698B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor-firstpass", "Assembly-CSharp-Editor-firstpass.csproj", "{1B3F7F21-41E9-FB43-41C3-D41D12E9698B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

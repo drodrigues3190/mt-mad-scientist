@@ -25,6 +25,7 @@ public class UpdateCursor : MonoBehaviour {
     void OnMouseEnter()
     {
         cursor.setHand();
+        
     }
 
     void OnMouseExit()

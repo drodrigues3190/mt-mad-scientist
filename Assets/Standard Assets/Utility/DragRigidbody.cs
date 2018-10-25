@@ -63,6 +63,9 @@ namespace UnityStandardAssets.Utility
 
         private IEnumerator DragObject(float distance)
         {
+            var banana = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+            banana.clip = null;
+            banana.Stop();
             var oldDrag = m_SpringJoint.connectedBody.drag;
             var oldAngularDrag = m_SpringJoint.connectedBody.angularDrag;
             m_SpringJoint.connectedBody.drag = k_Drag;
@@ -80,6 +83,7 @@ namespace UnityStandardAssets.Utility
                 m_SpringJoint.connectedBody.angularDrag = oldAngularDrag;
                 m_SpringJoint.connectedBody = null;
             }
+            
         }
 
 

@@ -7,6 +7,7 @@ public class AudioScript : MonoBehaviour {
     public AudioClip MusicClip;
     RaycastHit hit;
     bool test = false;
+    int count = 0;
     Ray ray;
 
     public AudioSource MusicSource;
@@ -15,7 +16,6 @@ public class AudioScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         MusicSource = GetComponent<AudioSource>();
-
     }
 	
 	// Update is called once per frame
@@ -26,6 +26,7 @@ public class AudioScript : MonoBehaviour {
         {
             if (hit.collider.name.Equals("Sphere"))
             {
+                
                 test = true;
                 if (MusicSource.clip != MusicClip)
                 {
@@ -35,14 +36,18 @@ public class AudioScript : MonoBehaviour {
 
                 if (!MusicSource.isPlaying)
                 {
-                    MusicSource.Play();
+                    if(count == 0) { 
+                        MusicSource.Play();
+                         count = 1;
+                    }
                 }
             }
         }
+        else count = 0;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        MusicSource.Play();
+        //MusicSource.Play();
     }
 }   

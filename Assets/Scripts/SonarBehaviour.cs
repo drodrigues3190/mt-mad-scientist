@@ -36,7 +36,7 @@ public class SonarBehaviour : MonoBehaviour {
     {
         IsCollidingWithTarget();
         PlayAudio();
-        UpdateAudioSourcePitch();        
+        UpdateAudioSourcePitch();
     }
     #endregion
 
@@ -127,6 +127,11 @@ public class SonarBehaviour : MonoBehaviour {
 
         audioSource.Stop();
         audioSource.volume = startVolume;
+    }
+
+    private void OnMouseDrag()
+    {
+        audioSource.Stop();
     }
     #endregion
 }
