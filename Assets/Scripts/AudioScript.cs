@@ -6,12 +6,10 @@ public class AudioScript : MonoBehaviour {
 
     public AudioClip MusicClip;
     RaycastHit hit;
-    bool test = false;
     int count = 0;
     Ray ray;
 
-    public AudioSource MusicSource;
-    public AudioSource cameraAudioSouce;
+    AudioSource MusicSource;
 
 	// Use this for initialization
 	void Start () {
@@ -27,7 +25,6 @@ public class AudioScript : MonoBehaviour {
             if (hit.collider.name.Equals("Sphere"))
             {
                 
-                test = true;
                 if (MusicSource.clip != MusicClip)
                 {
                     MusicSource.Stop();
@@ -46,8 +43,20 @@ public class AudioScript : MonoBehaviour {
         else count = 0;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        //MusicSource.Play();
+        Debug.Log("wentrei");
+        MusicSource = GetComponent<AudioSource>();
+        this.MusicSource.Stop();
+        this.MusicSource.clip = MusicClip;
+        this.MusicSource.Play();
+        //if (this.MusicSource.clip != MusicClip)
+        //{
+        //    this.MusicSource.Stop();
+        //    this.MusicSource.clip = MusicClip;
+        //}
+
+        //if (!this.MusicSource.isPlaying)
+        //        this.MusicSource.Play();
     }
 }   
