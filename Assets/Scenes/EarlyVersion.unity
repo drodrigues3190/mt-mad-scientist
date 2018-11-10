@@ -113,6 +113,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &55564041 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: adce5208b444c484aa53a24b20e6c4b4,
+    type: 3}
+  m_PrefabInternal: {fileID: 2130410496}
 --- !u!1 &231567464
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,7 +686,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &717233116
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -874,6 +879,7 @@ MonoBehaviour:
     type: 3}
   randomRadarSound: {fileID: 8300000, guid: 473cbfda7ec042443bc58739f0a22146, type: 3}
   MusicClip: {fileID: 8300000, guid: 2b0744280cff7864dbb3f8f20abf7f96, type: 3}
+  target: {fileID: 55564041}
   enableSonar: 0
   enableInstrument: 0
   enableVibration: 0
@@ -1168,7 +1174,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &1479363677
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1362,6 +1368,7 @@ MonoBehaviour:
     type: 3}
   randomRadarSound: {fileID: 8300000, guid: a73b5a55eb866a242a7c70aafca6339a, type: 3}
   MusicClip: {fileID: 8300000, guid: 2b0744280cff7864dbb3f8f20abf7f96, type: 3}
+  target: {fileID: 55564041}
   enableSonar: 0
   enableInstrument: 0
   enableVibration: 0
@@ -1712,7 +1719,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1908791506}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.92, y: 4.26, z: 0.636}
+  m_LocalPosition: {x: 2.92, y: 2.611, z: 0.636}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1748,6 +1755,7 @@ MonoBehaviour:
     type: 3}
   randomRadarSound: {fileID: 8300000, guid: eb75c677612bc1645a986ca62c80176b, type: 3}
   MusicClip: {fileID: 8300000, guid: ec90249697ba02a49831238bb594a885, type: 3}
+  target: {fileID: 55564041}
   enableSonar: 0
   enableInstrument: 0
   enableVibration: 0

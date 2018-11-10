@@ -9,6 +9,7 @@ public class SonarBehaviour : MonoBehaviour {
     public AudioClip instrumentRadarSound;
     public AudioClip randomRadarSound;
     public AudioClip MusicClip;
+    public GameObject target;
     public static SonarBehaviour instance;
     public bool enableSonar;
     public bool enableInstrument;
@@ -21,9 +22,12 @@ public class SonarBehaviour : MonoBehaviour {
 
     bool isRadar;
     float leftMotor;
+    float rightMotor;
     float previousLeftMotor;
+    float previousRightMotor;
     float previousDistance;
     float previousDistanceVib;
+    float previousDistanceHeight;
     float previousPitch;
 
     int tadaCounter;
@@ -41,9 +45,12 @@ public class SonarBehaviour : MonoBehaviour {
         enableVibration = false;
         objectFound = false;
         leftMotor = 0f;
+        rightMotor = 0f;
         previousLeftMotor = 0f;
-        previousDistanceVib = float.MaxValue;
+        previousRightMotor = 3.0f; // TODO change to CrateHeight
         previousDistance = float.MaxValue;
+        previousDistanceVib = float.MaxValue;
+        previousDistanceHeight = float.MaxValue;
         previousPitch = 0f;
         tadaCounter = 0;
         audioSource = GetComponent<AudioSource>();
@@ -68,6 +75,7 @@ public class SonarBehaviour : MonoBehaviour {
         {
             audioSource.pitch = 1.0f;
         }
+        checkHeightReached();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -95,29 +103,29 @@ public class SonarBehaviour : MonoBehaviour {
 
     private void OnTriggerStay(Collider other)
     {
-        if (enableVibration)
-        {
-            var distanceToTarget = Vector3.Distance(GameObject.Find("Cursor").transform.position, GameObject.Find("Crate").transform.position);
-            if (distanceToTarget < previousDistanceVib)
-            {
-                previousDistanceVib = distanceToTarget;
-                leftMotor = previousLeftMotor + 0.35f;
-                previousLeftMotor = leftMotor;
-            }
-            else if (distanceToTarget > previousDistanceVib)
-            {
-                previousDistanceVib = distanceToTarget;
-                leftMotor = previousLeftMotor - 0.35f;
-                previousLeftMotor = leftMotor;
-            }
-            if(leftMotor <= 0f) //verifies if value is lower than 0
-            {
-                leftMotor = 0.1f; //give small value to keep motor working
-            }
-            GamePad.SetVibration(PlayerIndex.One, leftMotor, 0f);
-        }
-        else
-            GamePad.SetVibration(PlayerIndex.One, 0f, 0f); //stops vibration
+        //if (enableVibration)
+        //{
+        //    var distanceToTarget = Vector3.Distance(GameObject.Find("Cursor").transform.position, GameObject.Find("Crate").transform.position);
+        //    if (distanceToTarget < previousDistanceVib)
+        //    {
+        //        previousDistanceVib = distanceToTarget;
+        //        leftMotor = previousLeftMotor + 0.35f;
+        //        previousLeftMotor = leftMotor;
+        //    }
+        //    else if (distanceToTarget > previousDistanceVib)
+        //    {
+        //        previousDistanceVib = distanceToTarget;
+        //        leftMotor = previousLeftMotor - 0.35f;
+        //        previousLeftMotor = leftMotor;
+        //    }
+        //    if(leftMotor <= 0f) //verifies if value is lower than 0
+        //    {
+        //        leftMotor = 0.1f; //give small value to keep motor working
+        //    }
+        //    GamePad.SetVibration(PlayerIndex.One, leftMotor, 0f);
+        //}
+        //else
+        //    GamePad.SetVibration(PlayerIndex.One, 0f, 0f); //stops vibration
     }
 
     /// <summary>
@@ -235,6 +243,43 @@ public class SonarBehaviour : MonoBehaviour {
     private void OnMouseDrag()
     {
         audioSource.Stop();
+    }
+    private void checkHeightReached()
+    {
+           
+            // 0.008 target height
+            // check if the game object is high enough to be inserted inside the  crate
+            // while isn't high enough the gamepad will decrease the vibration for 
+            if (transform.position.y < 5.0f)
+            {
+                var distanceToTargetHeight = transform.position.y - 5.0f; // TODO change 5.0f to a variable in START function
+                if (distanceToTargetHeight < previousDistanceHeight)
+                {
+                    //previousDistanceHeight = distanceToTargetHeight;
+                    //rightMotor = previousRightMotor - 1.25f;
+                    //previousRightMotor = rightMotor;
+                    if(transform.position.y > 2.6f && transform.position.y < 3.0f)
+                    {
+                        GamePad.SetVibration(PlayerIndex.One, 0f, 3.0f);
+                    }
+                if (transform.position.y >= 3.0f && transform.position.y < 4.0f)
+                {
+                    GamePad.SetVibration(PlayerIndex.One, 0f, 0.35f);
+                }
+                if (transform.position.y >= 4.0f && transform.position.y < 5.0f)
+                {
+                    GamePad.SetVibration(PlayerIndex.One, 0f, 0.2f);
+                }
+            }
+            //GamePad.SetVibration(PlayerIndex.One, 0f, rightMotor);
+           // 
+        }
+            else
+            {
+                GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
+                enableVibration = false;
+            }
+            Debug.Log(transform.position.y);
     }
     #endregion
 }
