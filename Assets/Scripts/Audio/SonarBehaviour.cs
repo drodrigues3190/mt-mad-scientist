@@ -14,13 +14,16 @@ public class SonarBehaviour : MonoBehaviour {
     public bool enableSonar;
     public bool enableInstrument;
     public bool enableVibration;
+    public bool findingTargetXZ;
     public bool objectFound;
+    public bool targetFound;
+
 
     // private vars
     AudioClip radarSound;
     AudioSource audioSource;
-
     bool isRadar;
+    bool findingTargetY;
     float leftMotor;
     float rightMotor;
     float previousLeftMotor;
@@ -28,8 +31,8 @@ public class SonarBehaviour : MonoBehaviour {
     float previousDistance;
     float previousDistanceVib;
     float previousDistanceHeight;
+    float previousDistanceXZ;
     float previousPitch;
-
     int tadaCounter;
     #endregion
 
@@ -41,7 +44,14 @@ public class SonarBehaviour : MonoBehaviour {
    
     private void Start()
     {
+        // private booleans
         isRadar = true;
+        findingTargetY = false;
+        findingTargetXZ = false;
+        targetFound = false;
+        
+
+
         enableVibration = false;
         objectFound = false;
         leftMotor = 0f;
@@ -51,6 +61,7 @@ public class SonarBehaviour : MonoBehaviour {
         previousDistance = float.MaxValue;
         previousDistanceVib = float.MaxValue;
         previousDistanceHeight = float.MaxValue;
+        previousDistanceXZ = float.MaxValue;
         previousPitch = 0f;
         tadaCounter = 0;
         audioSource = GetComponent<AudioSource>();
@@ -75,7 +86,7 @@ public class SonarBehaviour : MonoBehaviour {
         {
             audioSource.pitch = 1.0f;
         }
-        checkHeightReached();
+        FindTarget();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -244,12 +255,14 @@ public class SonarBehaviour : MonoBehaviour {
     {
         audioSource.Stop();
     }
-    private void checkHeightReached()
+    private void FindTargetAxisY()
     {
-           
+        //if (enableVibration)
+       // {
             // 0.008 target height
             // check if the game object is high enough to be inserted inside the  crate
             // while isn't high enough the gamepad will decrease the vibration for 
+           // Debug.Log("Finding target in Axis Y");
             if (transform.position.y < 5.0f)
             {
                 var distanceToTargetHeight = transform.position.y - 5.0f; // TODO change 5.0f to a variable in START function
@@ -271,15 +284,69 @@ public class SonarBehaviour : MonoBehaviour {
                     GamePad.SetVibration(PlayerIndex.One, 0f, 0.2f);
                 }
             }
-            //GamePad.SetVibration(PlayerIndex.One, 0f, rightMotor);
-           // 
         }
             else
             {
                 GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
-                enableVibration = false;
+                findingTargetXZ = true;
+                findingTargetY = false;
             }
-            Debug.Log(transform.position.y);
+       // }
+    }
+
+    private void FindTargetAxisXZ()
+    {
+       // if (enableVibration)
+       // {
+            Vector2 target = new Vector2(-1.25f, 0.8f);
+            Vector2 currentPos = new Vector2(transform.position.x, transform.position.z);
+            var distanceToTarget = Vector2.Distance(currentPos, target);
+
+           // Debug.Log("Finding target in Axis X and Z");
+            //Debug.Log("distance" + distanceToTarget);
+            //if (distanceToTarget < previousDistanceXZ)
+            //{
+            //    previousDistanceXZ = distanceToTarget;
+                if (distanceToTarget > 3.0f)
+                {
+                    GamePad.SetVibration(PlayerIndex.One, 3.0f, 0f);
+                }
+                if (distanceToTarget >= 1.0f && distanceToTarget <= 3.0f)
+                {
+                    GamePad.SetVibration(PlayerIndex.One, 0.35f, 0f);
+                }
+                if (distanceToTarget < 1.0f)
+                {
+                    GamePad.SetVibration(PlayerIndex.One, 0.2f, 0f);
+                }
+            //}
+            //else
+            //{
+            if(distanceToTarget <= 0.3) {
+                GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
+                findingTargetXZ = false;
+                //targetFound = true;
+            }
+      //  }
+    }
+
+    private void FindTarget()
+    {
+        if (enableVibration)
+        {
+            Debug.Log(targetFound);
+            if (!targetFound)
+            {
+                if (!findingTargetXZ)
+                    FindTargetAxisY();
+                else if (!findingTargetY)
+                    FindTargetAxisXZ();
+            }
+            else
+                enableVibration = false;
+        }
+        else
+            GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
     }
     #endregion
 }

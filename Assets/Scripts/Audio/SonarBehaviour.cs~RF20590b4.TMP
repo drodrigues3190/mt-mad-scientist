@@ -1,0 +1,351 @@
+﻿using System.Collections;
+using XInputDotNetPure;
+using UnityEngine;
+
+public class SonarBehaviour : MonoBehaviour {
+
+    #region Properties and variables
+    // public vars
+    public AudioClip instrumentRadarSound;
+    public AudioClip randomRadarSound;
+    public AudioClip MusicClip;
+    public GameObject target;
+    public static SonarBehaviour instance;
+    public bool enableSonar;
+    public bool enableInstrument;
+    public bool enableVibration;
+    public bool objectFound;
+
+    // private vars
+    AudioClip radarSound;
+    AudioSource audioSource;
+
+    bool isRadar;
+    bool targetFound;
+    bool targetFoundAxisY;
+
+    float leftMotor;
+    float rightMotor;
+    float previousLeftMotor;
+    float previousRightMotor;
+    float previousDistance;
+    float previousDistanceVib;
+    float previousDistanceHeight;
+    float previousDistanceXZ;
+    float previousPitch;
+
+    int tadaCounter;
+    #endregion
+
+    #region Unity Functions
+    private void Awake()
+    {
+        instance = this;
+    }
+   
+    private void Start()
+    {
+        // private booleans
+        isRadar = true;
+        targetFound = false;
+        targetFoundAxisY = false;
+
+        enableVibration = false;
+        objectFound = false;
+        leftMotor = 0f;
+        rightMotor = 0f;
+        previousLeftMotor = 0f;
+        previousRightMotor = 3.0f; // TODO change to CrateHeight
+        previousDistance = float.MaxValue;
+        previousDistanceVib = float.MaxValue;
+        previousDistanceHeight = float.MaxValue;
+        previousDistanceXZ = float.MaxValue;
+        previousPitch = 0f;
+        tadaCounter = 0;
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    private void Update()
+    {
+        if (enableInstrument)
+        {
+            radarSound = instrumentRadarSound;
+        }
+        else
+        {
+            radarSound = randomRadarSound;
+        }
+        PlayAudio();
+        if (enableSonar)
+        {
+            UpdateAudioSourcePitch();
+        }
+        else
+        {
+            audioSource.pitch = 1.0f;
+        }
+        findTarget();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name.Equals("Cursor"))
+            isRadar = false;
+        else
+            isRadar = true;
+    }
+
+    /// <summary>
+    /// isRadar - Turns radar sound off
+    /// objectFound - Object was found
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerEnter(Collider other)
+    {
+        isRadar = false;
+        objectFound = true;
+        //if (other.gameObject.name.Equals("Cursor"))
+        //{
+        //    enableVibration = true;
+        //}
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        //if (enableVibration)
+        //{
+        //    var distanceToTarget = Vector3.Distance(GameObject.Find("Cursor").transform.position, GameObject.Find("Crate").transform.position);
+        //    if (distanceToTarget < previousDistanceVib)
+        //    {
+        //        previousDistanceVib = distanceToTarget;
+        //        leftMotor = previousLeftMotor + 0.35f;
+        //        previousLeftMotor = leftMotor;
+        //    }
+        //    else if (distanceToTarget > previousDistanceVib)
+        //    {
+        //        previousDistanceVib = distanceToTarget;
+        //        leftMotor = previousLeftMotor - 0.35f;
+        //        previousLeftMotor = leftMotor;
+        //    }
+        //    if(leftMotor <= 0f) //verifies if value is lower than 0
+        //    {
+        //        leftMotor = 0.1f; //give small value to keep motor working
+        //    }
+        //    GamePad.SetVibration(PlayerIndex.One, leftMotor, 0f);
+        //}
+        //else
+        //    GamePad.SetVibration(PlayerIndex.One, 0f, 0f); //stops vibration
+    }
+
+    /// <summary>
+    /// isRadar - Turns radar sound on
+    /// enableVibration - Disable gamepad vibration
+    /// objectFound - Object is lost again
+    /// tadaCounter - Reset tada counter
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerExit(Collider other)
+    {
+        isRadar = true;
+        //enableVibration = false;
+        objectFound = false;
+        tadaCounter = 0;
+    }
+    #endregion
+
+    #region Custom Functions
+    /// <summary>
+    /// Plays audio file.
+    /// </summary>
+    private void PlayAudio()
+    {
+        if (isRadar)
+        {
+            if (audioSource.clip != radarSound)
+            {
+                audioSource.Stop();
+                audioSource.clip = radarSound;
+            }
+
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            if (audioSource.clip != MusicClip)
+            {
+                audioSource.Stop();
+                audioSource.clip = MusicClip;
+            }
+
+            if (!audioSource.isPlaying)
+            {
+                if (tadaCounter == 0)
+                {
+                    previousPitch = audioSource.pitch;
+                    audioSource.pitch = 1.0f;
+                    audioSource.PlayOneShot(MusicClip);
+                    tadaCounter = 1;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Sonar behaviour by changing the pitch value
+    /// </summary>
+    private void UpdateAudioSourcePitch()
+    {
+        //var dist = Mathf.Abs(GameObject.Find("Sphere").transform.position.z - transform.position.z);
+        //var targetV3Position = new Vector3(transform.position.x, transform.position.y, dist);
+        //targetV3Position = Camera.main.ScreenToWorldPoint(targetV3Position);
+
+        //var distanceToTarget = targetV3Position.magnitude;
+        if (isRadar && audioSource.clip == radarSound)
+        {
+            var distanceToTarget = Vector3.Distance(GameObject.Find("Cursor").transform.position, transform.position);
+            //var distanceToTarget = Vector3.Distance(targetV3Position, transform.position);
+            //var distanceToTarget = Vector3.Distance(transform.position.z, GameObject.Find("Sphere").transform.position.z);
+
+            //Debug.Log(distanceToTarget);
+            if (distanceToTarget < previousDistance)
+            {
+                previousDistance = distanceToTarget;
+                if (audioSource.pitch < 3.25f)
+                    audioSource.pitch += 0.2f * Time.deltaTime;
+            }
+            else if (distanceToTarget > previousDistance)
+            {
+                if (previousPitch != 0) { 
+                    audioSource.pitch = previousPitch;
+                    previousPitch = 0f;
+                }
+                previousDistance = distanceToTarget;
+                if (audioSource.pitch > 1.0f)
+                    this.audioSource.pitch -= 0.2f * Time.deltaTime;
+            }
+        }
+    }
+
+    public static void FadeOutTestCaller(AudioSource audioSource, float FadeTime)
+    {
+        instance.StartCoroutine(FadeOutTest(audioSource, FadeTime));
+    }
+
+        public static IEnumerator FadeOutTest(AudioSource audioSource, float FadeTime)
+    {
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+
+            yield return null;
+        }
+
+        audioSource.Stop();
+        audioSource.volume = startVolume;
+    }
+
+    private void OnMouseDrag()
+    {
+        audioSource.Stop();
+    }
+    private void findTargetAxisY()
+    {
+        if (enableVibration)
+        {
+            // 0.008 target height
+            // check if the game object is high enough to be inserted inside the  crate
+            // while isn't high enough the gamepad will decrease the vibration for 
+            if (transform.position.y < 5.0f)
+            {
+                var distanceToTargetHeight = transform.position.y - 5.0f; // TODO change 5.0f to a variable in START function
+                if (distanceToTargetHeight < previousDistanceHeight)
+                {
+                    //previousDistanceHeight = distanceToTargetHeight;
+                    //rightMotor = previousRightMotor - 1.25f;
+                    //previousRightMotor = rightMotor;
+                    if(transform.position.y > 2.6f && transform.position.y < 3.0f)
+                    {
+                        GamePad.SetVibration(PlayerIndex.One, 0f, 3.0f);
+                    }
+                if (transform.position.y >= 3.0f && transform.position.y < 4.0f)
+                {
+                    GamePad.SetVibration(PlayerIndex.One, 0f, 0.35f);
+                }
+                if (transform.position.y >= 4.0f && transform.position.y < 5.0f)
+                {
+                    GamePad.SetVibration(PlayerIndex.One, 0f, 0.2f);
+                }
+            }
+            //GamePad.SetVibration(PlayerIndex.One, 0f, rightMotor);
+           // 
+        }
+            else
+            {
+                GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
+                targetFoundAxisY = true;
+
+
+            }
+            Debug.Log(transform.position.y);
+        }
+    }
+
+    private void findTargetAxisXZ()
+    {
+        if (enableVibration)
+        {
+            // 0.008 target height
+            // check if the game object is high enough to be inserted inside the  crate
+            // while isn't high enough the gamepad will decrease the vibration for
+            Vector2 target = new Vector2(-1.25f, 0.8f);
+            Vector2 currentPos = new Vector2(transform.position.x, transform.position.z);
+            var distanceToTarget = Vector2.Distance(currentPos, target);
+
+            Debug.Log("distance" + distanceToTarget);
+            if (distanceToTarget > 0.3f)
+            {
+                if (distanceToTarget < previousDistanceXZ)
+                {
+                    previousDistanceXZ = distanceToTarget;
+                    if (distanceToTarget > 3.0f)
+                    {
+                        GamePad.SetVibration(PlayerIndex.One, 3.0f, 0f);
+                    }
+                    if (distanceToTarget >= 1.0f && distanceToTarget <= 3.0f)
+                    {
+                        GamePad.SetVibration(PlayerIndex.One, 0.35f, 0f);
+                    }
+                    if (distanceToTarget < 1.0f)
+                    {
+                        GamePad.SetVibration(PlayerIndex.One, 0.2f, 0f);
+                    }
+                }
+            }
+            else
+            {
+                GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
+                enableVibration = false;
+                targetFound = true;
+            }
+        }
+    }
+
+    private void findTarget()
+    {
+        if (!targetFound)
+        {
+            findTargetAxisY();
+            if (targetFoundAxisY)
+            {
+                findTargetAxisXZ();
+            }
+        }
+
+    }
+    #endregion
+}

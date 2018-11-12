@@ -26,8 +26,8 @@ public class DragObjectScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //OnRBTriggerDown();
-        //OnRBTriggerUp();
+        OnRBTriggerDown();
+        OnRBTriggerUp();
         OnButtonADown();
         OnRightStickDrag();
     }
@@ -47,7 +47,7 @@ public class DragObjectScript : MonoBehaviour
         }
         if (Input.GetButton("BButton"))
         {
-            GamePad.SetVibration(PlayerIndex.One, 0f, 0.25f);
+            GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
         }
         if (Input.GetButtonUp("BButton"))
         {
@@ -88,7 +88,12 @@ public class DragObjectScript : MonoBehaviour
     {
         if (Input.GetButtonUp("RBTrigger"))
         {
-            sonarBehaviourScript.enableVibration = false;
+            if (!sonarBehaviourScript.targetFound)
+            {
+                sonarBehaviourScript.enableVibration = false;
+                sonarBehaviourScript.findingTargetXZ = false;
+            }
+            //sonarBehaviourScript.enableVibration = false;
         }
     }
 
