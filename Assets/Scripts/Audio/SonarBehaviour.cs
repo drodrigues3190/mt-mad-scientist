@@ -303,7 +303,7 @@ public class SonarBehaviour : MonoBehaviour {
             var distanceToTarget = Vector2.Distance(currentPos, target);
 
            // Debug.Log("Finding target in Axis X and Z");
-            //Debug.Log("distance" + distanceToTarget);
+            Debug.Log("distance" + distanceToTarget);
             //if (distanceToTarget < previousDistanceXZ)
             //{
             //    previousDistanceXZ = distanceToTarget;
@@ -330,12 +330,14 @@ public class SonarBehaviour : MonoBehaviour {
       //  }
     }
 
+    /// <summary>
+    /// allows player to find the target using gamepad vibration
+    /// </summary>
     private void FindTarget()
     {
-        if (enableVibration)
+        if (!targetFound)
         {
-            Debug.Log(targetFound);
-            if (!targetFound)
+            if (enableVibration)
             {
                 if (!findingTargetXZ)
                     FindTargetAxisY();
@@ -343,10 +345,8 @@ public class SonarBehaviour : MonoBehaviour {
                     FindTargetAxisXZ();
             }
             else
-                enableVibration = false;
+                GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
         }
-        else
-            GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
     }
     #endregion
 }
