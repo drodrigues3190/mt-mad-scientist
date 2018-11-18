@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using XInputDotNetPure;
 using UnityEngine;
 
 public class SonarBehaviour : MonoBehaviour {
@@ -10,20 +9,26 @@ public class SonarBehaviour : MonoBehaviour {
     public AudioClip randomRadarSound;
     public AudioClip MusicClip;
     public GameObject target;
+    public GameObject testObject;
+
     public static SonarBehaviour instance;
     public bool enableSonar;
     public bool enableInstrument;
-    public bool enableVibration;
     public bool findingTargetXZ;
     public bool objectFound;
-    public bool targetFound;
+    public bool isSphereActive;
+    public bool isCubeActive;
+    public bool isCylinderActive;
+
+
 
 
     // private vars
     AudioClip radarSound;
     AudioSource audioSource;
     bool isRadar;
-    bool findingTargetY;
+   bool targetYDone;
+    bool targetXZDone;
     float leftMotor;
     float rightMotor;
     float previousLeftMotor;
@@ -34,6 +39,13 @@ public class SonarBehaviour : MonoBehaviour {
     float previousDistanceXZ;
     float previousPitch;
     int tadaCounter;
+    bool findingTargetYCube;
+    bool findingTargetYSphere;
+
+    bool isCube;
+    bool isCylinder;
+    bool isSphere;
+
     #endregion
 
     #region Unity Functions
@@ -44,15 +56,22 @@ public class SonarBehaviour : MonoBehaviour {
    
     private void Start()
     {
+        isCube = false;
+        isCylinder = false;
+        isSphere = false;
+
+
+
         // private booleans
         isRadar = true;
-        findingTargetY = false;
+        findingTargetYCube = true;
+        findingTargetYSphere = true;
         findingTargetXZ = false;
-        targetFound = false;
+        targetYDone = false;
+        targetXZDone = false;
         
 
 
-        enableVibration = false;
         objectFound = false;
         leftMotor = 0f;
         rightMotor = 0f;
@@ -86,7 +105,6 @@ public class SonarBehaviour : MonoBehaviour {
         {
             audioSource.pitch = 1.0f;
         }
-        FindTarget();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -106,6 +124,19 @@ public class SonarBehaviour : MonoBehaviour {
     {
         isRadar = false;
         objectFound = true;
+        switch (testObject.name)
+        {
+            case "Sphere":
+                isSphereActive = true;
+                break;
+            case "Cube":
+                isCubeActive = true;
+                break;
+            case "Cylinder":
+                isCylinderActive = true;
+                break;
+        }
+
         //if (other.gameObject.name.Equals("Cursor"))
         //{
         //    enableVibration = true;
@@ -151,6 +182,18 @@ public class SonarBehaviour : MonoBehaviour {
         isRadar = true;
         //enableVibration = false;
         objectFound = false;
+        switch (testObject.name)
+        {
+            case "Sphere":
+                isSphereActive = false;
+                break;
+            case "Cube":
+                isCubeActive = false;
+                break;
+            case "Cylinder":
+                isCylinderActive = false;
+                break;
+        }
         tadaCounter = 0;
     }
     #endregion
@@ -254,99 +297,6 @@ public class SonarBehaviour : MonoBehaviour {
     private void OnMouseDrag()
     {
         audioSource.Stop();
-    }
-    private void FindTargetAxisY()
-    {
-        //if (enableVibration)
-       // {
-            // 0.008 target height
-            // check if the game object is high enough to be inserted inside the  crate
-            // while isn't high enough the gamepad will decrease the vibration for 
-           // Debug.Log("Finding target in Axis Y");
-            if (transform.position.y < 5.0f)
-            {
-                var distanceToTargetHeight = transform.position.y - 5.0f; // TODO change 5.0f to a variable in START function
-                if (distanceToTargetHeight < previousDistanceHeight)
-                {
-                    //previousDistanceHeight = distanceToTargetHeight;
-                    //rightMotor = previousRightMotor - 1.25f;
-                    //previousRightMotor = rightMotor;
-                    if(transform.position.y > 2.6f && transform.position.y < 3.0f)
-                    {
-                        GamePad.SetVibration(PlayerIndex.One, 0f, 3.0f);
-                    }
-                if (transform.position.y >= 3.0f && transform.position.y < 4.0f)
-                {
-                    GamePad.SetVibration(PlayerIndex.One, 0f, 0.35f);
-                }
-                if (transform.position.y >= 4.0f && transform.position.y < 5.0f)
-                {
-                    GamePad.SetVibration(PlayerIndex.One, 0f, 0.2f);
-                }
-            }
-        }
-            else
-            {
-                GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
-                findingTargetXZ = true;
-                findingTargetY = false;
-            }
-       // }
-    }
-
-    private void FindTargetAxisXZ()
-    {
-       // if (enableVibration)
-       // {
-            Vector2 target = new Vector2(-1.25f, 0.8f);
-            Vector2 currentPos = new Vector2(transform.position.x, transform.position.z);
-            var distanceToTarget = Vector2.Distance(currentPos, target);
-
-           // Debug.Log("Finding target in Axis X and Z");
-            Debug.Log("distance" + distanceToTarget);
-            //if (distanceToTarget < previousDistanceXZ)
-            //{
-            //    previousDistanceXZ = distanceToTarget;
-                if (distanceToTarget > 3.0f)
-                {
-                    GamePad.SetVibration(PlayerIndex.One, 3.0f, 0f);
-                }
-                if (distanceToTarget >= 1.0f && distanceToTarget <= 3.0f)
-                {
-                    GamePad.SetVibration(PlayerIndex.One, 0.35f, 0f);
-                }
-                if (distanceToTarget < 1.0f)
-                {
-                    GamePad.SetVibration(PlayerIndex.One, 0.2f, 0f);
-                }
-            //}
-            //else
-            //{
-            if(distanceToTarget <= 0.3) {
-                GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
-                findingTargetXZ = false;
-                //targetFound = true;
-            }
-      //  }
-    }
-
-    /// <summary>
-    /// allows player to find the target using gamepad vibration
-    /// </summary>
-    private void FindTarget()
-    {
-        if (!targetFound)
-        {
-            if (enableVibration)
-            {
-                if (!findingTargetXZ)
-                    FindTargetAxisY();
-                else if (!findingTargetY)
-                    FindTargetAxisXZ();
-            }
-            else
-                GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
-        }
     }
     #endregion
 }

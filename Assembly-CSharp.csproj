@@ -74,7 +74,11 @@
     <Compile Include="Assets\Scripts\AudioScript.cs" />
     <Compile Include="Assets\Scripts\Cursor\CursorControllerScript.cs" />
     <Compile Include="Assets\Scripts\Handle_Cursor.cs" />
+    <Compile Include="Assets\Scripts\Objects\Cube\CubeVibrationScript.cs" />
+    <Compile Include="Assets\Scripts\Objects\Cube\DragCubeScript.cs" />
     <Compile Include="Assets\Scripts\Objects\DragObjectScript.cs" />
+    <Compile Include="Assets\Scripts\Objects\Sphere\DragSphereScript.cs" />
+    <Compile Include="Assets\Scripts\Objects\Sphere\SphereVibrationScript.cs" />
     <Compile Include="Assets\Scripts\Objects\TargetCollisionScript.cs" />
     <Compile Include="Assets\Scripts\Pointer.cs" />
     <Compile Include="Assets\Scripts\TriggerCollision.cs" />

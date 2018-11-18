@@ -709,8 +709,9 @@ GameObject:
   - component: {fileID: 717233117}
   - component: {fileID: 717233116}
   - component: {fileID: 717233121}
-  - component: {fileID: 717233123}
   - component: {fileID: 717233122}
+  - component: {fileID: 717233124}
+  - component: {fileID: 717233123}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -911,12 +912,14 @@ MonoBehaviour:
   randomRadarSound: {fileID: 8300000, guid: 473cbfda7ec042443bc58739f0a22146, type: 3}
   MusicClip: {fileID: 8300000, guid: 2b0744280cff7864dbb3f8f20abf7f96, type: 3}
   target: {fileID: 55564041}
+  testObject: {fileID: 717233115}
   enableSonar: 0
   enableInstrument: 0
-  enableVibration: 0
   findingTargetXZ: 0
   objectFound: 0
-  targetFound: 0
+  isSphereActive: 0
+  isCubeActive: 0
+  isCylinderActive: 0
 --- !u!114 &717233123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -925,12 +928,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 717233115}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfde55c86ed9f6f4cb1d90a7dd4f0db9, type: 3}
+  m_Script: {fileID: 11500000, guid: e4bd272254b05b24190a739d2fe4fcde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sphere: {fileID: 1908791506}
   cursor3D: {fileID: 291211603}
   movSpeed: 10
   rigidBody: {fileID: 717233116}
+--- !u!114 &717233124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 717233115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d417f0c0fe9b5904a843d2da88ea93d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableVibration: 0
+  findingTargetY: 0
+  targetFound: 0
 --- !u!1001 &886101538
 Prefab:
   m_ObjectHideFlags: 0
@@ -1207,7 +1225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &1479363677
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1402,12 +1420,14 @@ MonoBehaviour:
   randomRadarSound: {fileID: 8300000, guid: a73b5a55eb866a242a7c70aafca6339a, type: 3}
   MusicClip: {fileID: 8300000, guid: 2b0744280cff7864dbb3f8f20abf7f96, type: 3}
   target: {fileID: 55564041}
+  testObject: {fileID: 1479363676}
   enableSonar: 0
   enableInstrument: 0
-  enableVibration: 0
   findingTargetXZ: 0
   objectFound: 0
-  targetFound: 0
+  isSphereActive: 0
+  isCubeActive: 0
+  isCylinderActive: 0
 --- !u!114 &1479363684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1684,8 +1704,9 @@ GameObject:
   - component: {fileID: 1908791507}
   - component: {fileID: 1908791511}
   - component: {fileID: 1908791514}
-  - component: {fileID: 1908791516}
   - component: {fileID: 1908791513}
+  - component: {fileID: 1908791515}
+  - component: {fileID: 1908791512}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -1775,6 +1796,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1908791512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1908791506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4c16f89172ae743bd5d2be870e1687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableSphereVibration: 0
+  sphereFindingTargetY: 0
+  spheretargetFound: 0
 --- !u!114 &1908791513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1791,12 +1826,14 @@ MonoBehaviour:
   randomRadarSound: {fileID: 8300000, guid: eb75c677612bc1645a986ca62c80176b, type: 3}
   MusicClip: {fileID: 8300000, guid: ec90249697ba02a49831238bb594a885, type: 3}
   target: {fileID: 55564041}
+  testObject: {fileID: 1908791506}
   enableSonar: 0
   enableInstrument: 0
-  enableVibration: 0
   findingTargetXZ: 0
   objectFound: 0
-  targetFound: 0
+  isSphereActive: 0
+  isCubeActive: 0
+  isCylinderActive: 0
 --- !u!82 &1908791514
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1892,7 +1929,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1908791516
+--- !u!114 &1908791515
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1900,9 +1937,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1908791506}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfde55c86ed9f6f4cb1d90a7dd4f0db9, type: 3}
+  m_Script: {fileID: 11500000, guid: cad8c94d3f84c914083b8dc303ef4ad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cube: {fileID: 717233115}
   cursor3D: {fileID: 291211603}
   movSpeed: 10
   rigidBody: {fileID: 1908791511}

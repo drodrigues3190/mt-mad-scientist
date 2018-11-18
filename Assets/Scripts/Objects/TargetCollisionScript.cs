@@ -23,7 +23,31 @@ public class TargetCollisionScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        var sonarBehaviour = other.GetComponent<SonarBehaviour>();
-        sonarBehaviour.targetFound = true;
+        var sonarScript = other.GetComponent<SonarBehaviour>();
+        switch (other.name)
+        {
+            case "Sphere":
+                var sphereVibration = other.GetComponent<SphereVibrationScript>();
+                var dragSphere = other.GetComponent<DragSphereScript>();
+                sonarScript.isSphereActive = false;
+                sphereVibration.spheretargetFound = true;
+                Destroy(sonarScript);
+                Destroy(sphereVibration);
+                Destroy(dragSphere);
+                break;
+            case "Cube":
+                var cubeVibration = other.GetComponent<CubeVibrationScript>();
+                var dragCube = other.GetComponent<DragCubeScript>();
+                sonarScript.isSphereActive = false;
+                cubeVibration.targetFound = true;
+                Destroy(sonarScript);
+                Destroy(cubeVibration);
+                Destroy(dragCube);
+                break;
+            case "Cylinder":
+                break;
+        }
+
+        // Destroy(other);
     }
 }

@@ -79,7 +79,6 @@ public class DragObjectScript : MonoBehaviour
     {
         if (Input.GetButtonDown("RBTrigger"))
         {
-            sonarBehaviourScript.enableVibration = true;
         }
     }
 
@@ -88,12 +87,7 @@ public class DragObjectScript : MonoBehaviour
     {
         if (Input.GetButtonUp("RBTrigger"))
         {
-            if (!sonarBehaviourScript.targetFound)
-            {
-                sonarBehaviourScript.enableVibration = false;
-                sonarBehaviourScript.findingTargetXZ = false;
-            }
-            //sonarBehaviourScript.enableVibration = false;
+
         }
     }
 
