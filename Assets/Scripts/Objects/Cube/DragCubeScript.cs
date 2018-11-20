@@ -8,6 +8,7 @@ public class DragCubeScript : MonoBehaviour {
     #region properties
     // public
     public GameObject sphere;
+    public GameObject cylinder;
     public GameObject cursor3D;
     public float movSpeed;
     public Rigidbody rigidBody;
@@ -58,6 +59,9 @@ public class DragCubeScript : MonoBehaviour {
             cubeVibrationScript.enableVibration = true;
             if(null != sphere)
                 sphere.GetComponent<SphereVibrationScript>().enabled = false;
+            if(null != cylinder)
+                cylinder.GetComponent<CylinderVibrationScript>().enabled = false;
+
         }
     }
 
@@ -73,6 +77,8 @@ public class DragCubeScript : MonoBehaviour {
                 sonarBehaviourScript.isCubeActive = false;
                 if (null != sphere)
                     sphere.GetComponent<SphereVibrationScript>().enabled = true;
+                if (null != cylinder)
+                    cylinder.GetComponent<CylinderVibrationScript>().enabled = true;
             }
         }
     }

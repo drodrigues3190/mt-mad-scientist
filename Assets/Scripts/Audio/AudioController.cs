@@ -34,10 +34,21 @@ public class AudioController : MonoBehaviour {
             cubeAudioSource.mute = true;
             cylinderAudioSource.mute = true;
         }
+        else if (cubeSonarScript.objectFound)
+        {
+            sphereAudioSource.mute = true;
+            cylinderAudioSource.mute = true;
+        }
+        else if (cylinderSonarScript.objectFound)
+        {
+            sphereAudioSource.mute = true;
+            cubeAudioSource.mute = true;
+        }
         else
         {
+            sphereAudioSource.mute = false;
             cubeAudioSource.mute = false;
             cylinderAudioSource.mute = false;
         }
-	}
+    }   
 }

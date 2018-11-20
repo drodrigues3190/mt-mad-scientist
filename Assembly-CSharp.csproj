@@ -76,6 +76,8 @@
     <Compile Include="Assets\Scripts\Handle_Cursor.cs" />
     <Compile Include="Assets\Scripts\Objects\Cube\CubeVibrationScript.cs" />
     <Compile Include="Assets\Scripts\Objects\Cube\DragCubeScript.cs" />
+    <Compile Include="Assets\Scripts\Objects\Cylinder\CylinderVibrationScript.cs" />
+    <Compile Include="Assets\Scripts\Objects\Cylinder\DragCylinderScript.cs" />
     <Compile Include="Assets\Scripts\Objects\DragObjectScript.cs" />
     <Compile Include="Assets\Scripts\Objects\Sphere\DragSphereScript.cs" />
     <Compile Include="Assets\Scripts\Objects\Sphere\SphereVibrationScript.cs" />

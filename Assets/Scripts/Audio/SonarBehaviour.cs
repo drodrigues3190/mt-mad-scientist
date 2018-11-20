@@ -107,13 +107,13 @@ public class SonarBehaviour : MonoBehaviour {
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.name.Equals("Cursor"))
-            isRadar = false;
-        else
-            isRadar = true;
-    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.name.Equals("Cursor"))
+    //        isRadar = false;
+    //    else
+    //        isRadar = true;
+    //}
 
     /// <summary>
     /// isRadar - Turns radar sound off
@@ -122,52 +122,25 @@ public class SonarBehaviour : MonoBehaviour {
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        isRadar = false;
-        objectFound = true;
-        switch (testObject.name)
+        if (other.name == "crates_Smallfullopen_LOD0")
         {
-            case "Sphere":
-                isSphereActive = true;
-                break;
-            case "Cube":
-                isCubeActive = true;
-                break;
-            case "Cylinder":
-                isCylinderActive = true;
-                break;
         }
-
-        //if (other.gameObject.name.Equals("Cursor"))
-        //{
-        //    enableVibration = true;
-        //}
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        //if (enableVibration)
-        //{
-        //    var distanceToTarget = Vector3.Distance(GameObject.Find("Cursor").transform.position, GameObject.Find("Crate").transform.position);
-        //    if (distanceToTarget < previousDistanceVib)
-        //    {
-        //        previousDistanceVib = distanceToTarget;
-        //        leftMotor = previousLeftMotor + 0.35f;
-        //        previousLeftMotor = leftMotor;
-        //    }
-        //    else if (distanceToTarget > previousDistanceVib)
-        //    {
-        //        previousDistanceVib = distanceToTarget;
-        //        leftMotor = previousLeftMotor - 0.35f;
-        //        previousLeftMotor = leftMotor;
-        //    }
-        //    if(leftMotor <= 0f) //verifies if value is lower than 0
-        //    {
-        //        leftMotor = 0.1f; //give small value to keep motor working
-        //    }
-        //    GamePad.SetVibration(PlayerIndex.One, leftMotor, 0f);
-        //}
-        //else
-        //    GamePad.SetVibration(PlayerIndex.One, 0f, 0f); //stops vibration
+        else { 
+            isRadar = false;
+            objectFound = true;
+            switch (testObject.name)
+            {
+                case "Sphere":
+                    isSphereActive = true;
+                    break;
+                case "Cube":
+                    isCubeActive = true;
+                    break;
+                case "Cylinder":
+                    isCylinderActive = true;
+                    break;
+            }
+        }
     }
 
     /// <summary>
@@ -180,7 +153,6 @@ public class SonarBehaviour : MonoBehaviour {
     private void OnTriggerExit(Collider other)
     {
         isRadar = true;
-        //enableVibration = false;
         objectFound = false;
         switch (testObject.name)
         {
@@ -274,29 +246,24 @@ public class SonarBehaviour : MonoBehaviour {
         }
     }
 
-    public static void FadeOutTestCaller(AudioSource audioSource, float FadeTime)
-    {
-        instance.StartCoroutine(FadeOutTest(audioSource, FadeTime));
-    }
+    //public static void FadeOutTestCaller(AudioSource audioSource, float FadeTime)
+    //{
+    //    instance.StartCoroutine(FadeOutTest(audioSource, FadeTime));
+    //}
 
-        public static IEnumerator FadeOutTest(AudioSource audioSource, float FadeTime)
-    {
-        float startVolume = audioSource.volume;
+    //    public static IEnumerator FadeOutTest(AudioSource audioSource, float FadeTime)
+    //{
+    //    float startVolume = audioSource.volume;
 
-        while (audioSource.volume > 0)
-        {
-            audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+    //    while (audioSource.volume > 0)
+    //    {
+    //        audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
 
-            yield return null;
-        }
+    //        yield return null;
+    //    }
 
-        audioSource.Stop();
-        audioSource.volume = startVolume;
-    }
-
-    private void OnMouseDrag()
-    {
-        audioSource.Stop();
-    }
+    //    audioSource.Stop();
+    //    audioSource.volume = startVolume;
+    //}
     #endregion
 }
