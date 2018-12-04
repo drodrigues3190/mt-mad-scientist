@@ -93,7 +93,10 @@ public class DragCylinderScript : MonoBehaviour {
             {
                 rigidBody.useGravity = false;
                 cursor3D.transform.position = transform.position;
-                transform.Translate(movSpeed * Input.GetAxisRaw("Left Stick X Axis") * Time.deltaTime, movSpeed * Input.GetAxisRaw("Right Stick Y Axis") * Time.deltaTime, movSpeed * Input.GetAxisRaw("Left Stick Y Axis") * Time.deltaTime);
+                if (cylinderVibrationScript.cylinderFindingTargetY)
+                    transform.Translate(0, movSpeed * Input.GetAxisRaw("Right Stick Y Axis") * Time.deltaTime, 0);
+                else
+                    transform.Translate(movSpeed * Input.GetAxisRaw("Left Stick X Axis") * Time.deltaTime, 0, movSpeed * Input.GetAxisRaw("Left Stick Y Axis") * Time.deltaTime);
             }
             else
                 rigidBody.useGravity = true;

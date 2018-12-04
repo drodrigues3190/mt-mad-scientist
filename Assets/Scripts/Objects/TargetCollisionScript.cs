@@ -10,6 +10,9 @@ public class TargetCollisionScript : MonoBehaviour {
     public AudioSource cubeAudioSource;
     public AudioSource cylinderAudioSource;
     public AudioSource sphereAudioSource;
+
+    // private vars
+    AudioSource targetAudioSource;
     #endregion
 
     #region unity default methods
@@ -27,6 +30,8 @@ public class TargetCollisionScript : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         var sonarScript = other.GetComponent<SonarBehaviour>();
+        var audioSource = this.gameObject.GetComponent<AudioSource>();
+        audioSource.Play();
         switch (other.name)
         {
             case "Sphere":
