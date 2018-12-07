@@ -74,6 +74,8 @@
     <Compile Include="Assets\Scripts\AudioScript.cs" />
     <Compile Include="Assets\Scripts\Cursor\CursorControllerScript.cs" />
     <Compile Include="Assets\Scripts\Cursor\Handle_Cursor.cs" />
+    <Compile Include="Assets\Scripts\LevelNumberScript.cs" />
+    <Compile Include="Assets\Scripts\MainMenuControllerScript.cs" />
     <Compile Include="Assets\Scripts\Objects\Cube\CubeVibrationScript.cs" />
     <Compile Include="Assets\Scripts\Objects\Cube\DragCubeScript.cs" />
     <Compile Include="Assets\Scripts\Objects\Cylinder\CylinderVibrationScript.cs" />
