@@ -61,6 +61,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CheckpointAudioScript.cs" />
+    <Compile Include="Assets\GameControllerScript.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\SceneAndURLLoader.cs" />
@@ -70,10 +72,13 @@
     <Compile Include="Assets\SampleScenes\Scripts\PlaceTargetWithMouse.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioController.cs" />
+    <Compile Include="Assets\Scripts\Audio\AudioInstructionsScript.cs" />
     <Compile Include="Assets\Scripts\Audio\SonarBehaviour.cs" />
     <Compile Include="Assets\Scripts\AudioScript.cs" />
+    <Compile Include="Assets\Scripts\CupScript.cs" />
     <Compile Include="Assets\Scripts\Cursor\CursorControllerScript.cs" />
     <Compile Include="Assets\Scripts\Cursor\Handle_Cursor.cs" />
+    <Compile Include="Assets\Scripts\LevelControlScript.cs" />
     <Compile Include="Assets\Scripts\LevelNumberScript.cs" />
     <Compile Include="Assets\Scripts\MainMenuControllerScript.cs" />
     <Compile Include="Assets\Scripts\Objects\Cube\CubeVibrationScript.cs" />
@@ -84,6 +89,7 @@
     <Compile Include="Assets\Scripts\Objects\Sphere\SphereVibrationScript.cs" />
     <Compile Include="Assets\Scripts\Objects\TargetCollisionScript.cs" />
     <Compile Include="Assets\Scripts\Pointer.cs" />
+    <Compile Include="Assets\Scripts\SkullScript.cs" />
     <Compile Include="Assets\Scripts\TriggerCollision.cs" />
     <Compile Include="Assets\Scripts\ViewController.cs" />
     <Compile Include="Assets\XInputDotNet\Examples\XInputTestCS.cs" />
