@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\LevelControlScript.cs" />
     <Compile Include="Assets\Scripts\LevelNumberScript.cs" />
     <Compile Include="Assets\Scripts\MainMenuControllerScript.cs" />
+    <Compile Include="Assets\Scripts\Objects\Canvas\CanvasController.cs" />
     <Compile Include="Assets\Scripts\Objects\Cube\CubeVibrationScript.cs" />
     <Compile Include="Assets\Scripts\Objects\Cube\DragCubeScript.cs" />
     <Compile Include="Assets\Scripts\Objects\Cylinder\CylinderVibrationScript.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Assets\Scripts\SkullScript.cs" />
     <Compile Include="Assets\Scripts\TriggerCollision.cs" />
     <Compile Include="Assets\Scripts\ViewController.cs" />
+    <Compile Include="Assets\VibrationControllerScript.cs" />
     <Compile Include="Assets\XInputDotNet\Examples\XInputTestCS.cs" />
     <None Include="Assets\XInputDotNet\Docs.txt" />
     <None Include="Assets\XInputDotNet\MITLicense.txt" />

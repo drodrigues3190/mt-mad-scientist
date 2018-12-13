@@ -36,7 +36,6 @@ public class AudioInstructionsScript : MonoBehaviour {
         {
             audioSource.PlayOneShot(introductionStep2Clip);
             playSoundOnce = true;
-            gameController.canSpawn = true;
             return;
         }
     }

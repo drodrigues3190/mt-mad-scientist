@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameControllerScript : MonoBehaviour {
 
     //public
-    public Vector3 spawnLocation;
-    public CheckpointAudioScript checkpointToEnable;
+    public GameObject checkpoint;
+    public GameObject checkpoint1;
     public static GameControllerScript instance;
-    public bool canSpawn;
 
     //private
 
@@ -20,15 +20,40 @@ public class GameControllerScript : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        canSpawn = false;
+        checkpoint.GetComponent<CheckpointAudioScript>().canDestroy = true;
+        if(SceneManager.GetActiveScene().buildIndex < 4)
+        {
+            checkpoint1.GetComponent<SonarBehaviour>().enabled = false;
+            checkpoint1.GetComponent<VibrationControllerScript>().enabled = false;
+        }
+        else
+            checkpoint1.GetComponent<CheckpointAudioScript>().canDestroy = true;
+
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if(canSpawn)
+        if (SceneManager.GetActiveScene().buildIndex < 5)
         {
-            checkpointToEnable.GetComponentInChildren<Renderer>().enabled = true;
-            canSpawn = false;
+            if (null == checkpoint)
+            {
+                if (null != checkpoint1)
+                {
+                    checkpoint1.GetComponent<CheckpointAudioScript>().canDestroy = true;
+                    checkpoint1.GetComponent<SonarBehaviour>().enabled = true;
+                    checkpoint1.GetComponent<VibrationControllerScript>().enabled = true;
+                }
+                else
+                    LevelControlScript.instance.youWin();
+            }
         }
+        else
+        {
+            if(null == checkpoint && null == checkpoint1)
+            {
+                LevelControlScript.instance.youWin();
+            }
+        }
+
 	}
 }
