@@ -604,7 +604,7 @@ MonoBehaviour:
     type: 3}
   randomRadarSound: {fileID: 8300000, guid: 473cbfda7ec042443bc58739f0a22146, type: 3}
   MusicClip: {fileID: 8300000, guid: ff0a7549f9ea7f5418d702c2f60fbf43, type: 3}
-  wordSound: {fileID: 8300000, guid: 213692e30c94b3d4eb2828695b728d51, type: 3}
+  wordSound: {fileID: 8300000, guid: 06943d7c168e99248a8133880d01f889, type: 3}
   target: {fileID: 0}
   testObject: {fileID: 681152270}
   enableMixedSonar: 0
@@ -2087,6 +2087,48 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!1001 &1673761420
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4158324779290346, guid: e1f79b764e8734348b15e7a6f1a46218, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 4.4384217
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158324779290346, guid: e1f79b764e8734348b15e7a6f1a46218, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 17.018053
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158324779290346, guid: e1f79b764e8734348b15e7a6f1a46218, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -5.060346
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158324779290346, guid: e1f79b764e8734348b15e7a6f1a46218, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158324779290346, guid: e1f79b764e8734348b15e7a6f1a46218, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158324779290346, guid: e1f79b764e8734348b15e7a6f1a46218, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158324779290346, guid: e1f79b764e8734348b15e7a6f1a46218, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158324779290346, guid: e1f79b764e8734348b15e7a6f1a46218, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e1f79b764e8734348b15e7a6f1a46218, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1792561462
 Prefab:
   m_ObjectHideFlags: 0

@@ -12,15 +12,15 @@ public class MainMenuControllerScript: MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        levelPassed = PlayerPrefs.GetInt("LevelPassed");
-        level02Button.interactable = false;
+        //levelPassed = PlayerPrefs.GetInt("LevelPassed");
+        //level02Button.interactable = false;
 
-        switch(levelPassed)
-        {
-            case 1:
-                level02Button.interactable = true;
-                break;
-        }
+        //switch(levelPassed)
+        //{
+        //    case 1:
+        //        level02Button.interactable = true;
+        //        break;
+        //}
 	}
 	
     public void levelToLoad(int level)
